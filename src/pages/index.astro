@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RackUnit from '../components/RackUnit.astro';
+---
+<Layout title="index">
+  <section class="mb-16 sm:mb-24">
+    <p class="font-mono text-xs text-signal mb-4">// boot sequence complete</p>
+    <h1 class="text-4xl sm:text-6xl font-bold leading-[1.1] mb-6 max-w-2xl">
+      This machine is online.
+    </h1>
+    <p class="text-dim text-base sm:text-lg max-w-xl leading-relaxed">
+      I'm [Your Name] — I build and run a home lab, ship side projects, and
+      write about both. Everything below is a mounted unit. Pick one.
+    </p>
+  </section>
+
+  <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <RackUnit unit="U1" title="About" href="/about">
+      <p class="text-dim text-sm leading-relaxed">Who I am, what I do, how I got here.</p>
+    </RackUnit>
+    <RackUnit unit="U2" title="Home Lab" href="/homelab">
+      <p class="text-dim text-sm leading-relaxed">The hardware and software actually keeping this site up.</p>
+    </RackUnit>
+    <RackUnit unit="U3" title="Projects" href="/projects">
+      <p class="text-dim text-sm leading-relaxed">Things I've shipped, still shipping, or shelved.</p>
+    </RackUnit>
+  </section>
+</Layout>

@@ -1,0 +1,14 @@
+---
+interface Props { status: 'active' | 'wip' | 'archived' }
+const { status } = Astro.props;
+const map = {
+  active:   { color: 'text-signal', label: 'ACTIVE' },
+  wip:      { color: 'text-amber',  label: 'IN PROGRESS' },
+  archived: { color: 'text-dim',    label: 'ARCHIVED' },
+};
+const { color, label } = map[status];
+---
+<span class:list={["font-mono text-[10px] tracking-wider inline-flex items-center gap-1.5", color]}>
+  <span class:list={["w-1.5 h-1.5 rounded-full status-dot", color.replace('text-', 'bg-')]}></span>
+  {label}
+</span>

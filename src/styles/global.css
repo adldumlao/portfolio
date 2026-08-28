@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #14181D;
+  color: #E6E9ED;
+  font-family: 'IBM Plex Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* visible keyboard focus everywhere */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #4FD1A5;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* rack-ear screw holes — the recurring signature motif */
+.rack-ear {
+  background-image: radial-gradient(circle, #2D343D 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+}
+
+.status-dot {
+  box-shadow: 0 0 8px 1px currentColor;
+}
+
+.crt-flicker {
+  animation: flicker 3s infinite;
+}
+@keyframes flicker {
+  0%, 96%, 100% { opacity: 1; }
+  97% { opacity: 0.7; }
+  98% { opacity: 1; }
+}

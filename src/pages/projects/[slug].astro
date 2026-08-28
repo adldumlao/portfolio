@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+<Layout title={project.data.title} description={project.data.description}>
+  <a href="/projects" class="font-mono text-xs text-dim hover:text-signal transition-colors mb-8 inline-block">
+    ← back to /projects
+  </a>
+
+  <div class="flex items-center justify-between gap-4 mb-3 flex-wrap">
+    <h1 class="text-3xl sm:text-4xl font-bold">{project.data.title}</h1>
+    <StatusBadge status={project.data.status} />
+  </div>
+
+  <p class="text-dim text-base leading-relaxed mb-6 max-w-2xl">{project.data.description}</p>
+
+  <div class="flex flex-wrap gap-2 mb-8">
+    {project.data.stack.map(s => (
+      <span class="font-mono text-[10px] border border-line bg-panel px-2.5 py-1 rounded-sm text-dim">{s}</span>
+    ))}
+  </div>
+
+  <div class="flex gap-3 mb-12 font-mono text-xs">
+    {project.data.repoUrl && (
+      <a href={project.data.repoUrl} class="border border-line px-3 py-2 rounded-sm hover:border-signal hover:text-signal transition-colors">
+        view repo →
+      </a>
+    )}
+    {project.data.demoUrl && (
+      <a href={project.data.demoUrl} class="border border-line px-3 py-2 rounded-sm hover:border-signal hover:text-signal transition-colors">
+        live demo →
+      </a>
+    )}
+  </div>
+
+  <article class="prose prose-invert max-w-2xl leading-relaxed
+    prose-headings:font-semibold prose-headings:mb-3 prose-headings:mt-8
+    prose-p:text-dim prose-li:text-dim prose-a:text-signal prose-strong:text-ink
+    prose-code:font-mono prose-code:text-xs prose-code:bg-panel prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-sm">
+    <Content />
+  </article>
+</Layout>

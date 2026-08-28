@@ -1,0 +1,33 @@
+---
+// The signature element: a card styled like a mounted rack unit,
+// complete with U-number and screw-hole "ears" on either side.
+interface Props {
+  unit: string;       // e.g. "U1"
+  title: string;
+  href?: string;
+  class?: string;
+}
+const { unit, title, href, class: className = '' } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+<Tag
+  href={href}
+  class:list={[
+    "group relative flex items-stretch border border-line bg-panel rounded-sm overflow-hidden",
+    "transition-colors hover:border-signal/60",
+    className
+  ]}
+>
+  <div class="w-3 sm:w-4 shrink-0 rack-ear border-r border-line"></div>
+  <div class="flex-1 p-5 sm:p-6">
+    <div class="flex items-center justify-between mb-2">
+      <span class="font-mono text-xs text-dim">{unit}</span>
+      <span class="font-mono text-xs text-dim group-hover:text-signal transition-colors">
+        {href ? '→' : ''}
+      </span>
+    </div>
+    <h3 class="font-semibold text-lg sm:text-xl mb-2">{title}</h3>
+    <slot />
+  </div>
+  <div class="w-3 sm:w-4 shrink-0 rack-ear border-l border-line"></div>
+</Tag>

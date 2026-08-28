@@ -3,7 +3,7 @@ title: "Zero-Port-Forward Reverse Proxy"
 description: "Cloudflare Tunnel + Nginx Proxy Manager exposing internal services without opening a single port on the router."
 status: "wip"
 stack: ["Cloudflare Tunnel", "Nginx Proxy Manager", "Docker"]
-repoUrl: "https://github.com/yourname/homelab-tunnel"
+repoUrl: "https://github.com/adldumlao/homelab-tunnel"
 date: 2026-01-15
 order: 2
 ---

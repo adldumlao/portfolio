@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -17,9 +17,9 @@ html {
 }
 
 body {
-  background-color: #14181D;
-  color: #E6E9ED;
-  font-family: 'IBM Plex Sans', sans-serif;
+  background-color: #04123F;
+  color: #EAF0FA;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -32,14 +32,14 @@ body {
 a:focus-visible,
 button:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid #4FD1A5;
+  outline: 2px solid #FEC40B;
   outline-offset: 3px;
   border-radius: 2px;
 }
 
 /* rack-ear screw holes — the recurring signature motif */
 .rack-ear {
-  background-image: radial-gradient(circle, #2D343D 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle, #16295E 1.5px, transparent 1.5px);
   background-size: 10px 10px;
 }
 

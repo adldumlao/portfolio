@@ -3,7 +3,7 @@ title: "Homelab Monitoring Stack"
 description: "Prometheus + Grafana + Uptime Kuma watching every box in the rack, alerting to Discord when something falls over."
 status: "active"
 stack: ["Prometheus", "Grafana", "Uptime Kuma", "Docker Compose"]
-repoUrl: "https://github.com/yourname/homelab-monitoring"
+repoUrl: "https://github.com/adldumlao/homelab-monitoring"
 date: 2025-11-02
 order: 1
 ---

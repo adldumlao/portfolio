@@ -3,7 +3,7 @@ interface Props { status: 'active' | 'wip' | 'archived' }
 const { status } = Astro.props;
 const map = {
   active:   { color: 'text-signal', label: 'ACTIVE' },
-  wip:      { color: 'text-amber',  label: 'IN PROGRESS' },
+  wip:      { color: 'text-accent2', label: 'IN PROGRESS' },
   archived: { color: 'text-dim',    label: 'ARCHIVED' },
 };
 const { color, label } = map[status];

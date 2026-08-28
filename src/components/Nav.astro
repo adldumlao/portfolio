@@ -1,63 +1,45 @@
 ---
 const links = [
-  { href: '/', label: 'index' },
-  { href: '/about', label: 'about' },
-  { href: '/homelab', label: 'homelab' },
-  { href: '/projects', label: 'projects' },
+  { href: '/#about', label: 'About', id: 'about' },
+  { href: '/#certifications', label: 'Certifications', id: 'certifications' },
+  { href: '/#homelab', label: 'Home Lab', id: 'homelab' },
+  { href: '/#projects', label: 'Projects', id: 'projects' },
 ];
-const current = Astro.url.pathname;
 ---
-<header class="border-b border-line rack-ear">
-  <div class="max-w-5xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
-    <a href="/" class="font-mono text-sm text-ink tracking-tight">
-      ~/arnel<span class="text-signal">$</span>
+<header id="site-nav" class="sticky top-0 z-50 bg-bg/90 backdrop-blur border-b border-line/60">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
+    <a href="/#home" class="font-extrabold text-lg text-ink tracking-tight">
+      ADL<span class="text-signal">.</span>
     </a>
 
-    <nav class="hidden sm:flex items-center gap-6 font-mono text-sm">
+    <nav class="hidden sm:flex items-center gap-8 text-sm">
       {links.map(l => (
         <a
           href={l.href}
-          class:list={[
-            "text-dim hover:text-signal transition-colors",
-            current === l.href && "text-signal"
-          ]}
+          data-nav-link={l.id}
+          class="text-dim hover:text-ink transition-colors data-[active=true]:text-signal font-medium"
         >
-          /{l.label}
+          {l.label}
         </a>
       ))}
     </nav>
 
-    <div class="hidden sm:flex items-center gap-2 font-mono text-xs text-dim">
-      <span class="w-2 h-2 rounded-full bg-signal status-dot crt-flicker"></span>
-      SYSTEM ONLINE
-    </div>
-
     <button
       id="nav-toggle"
-      class="sm:hidden font-mono text-sm text-ink border border-line rounded px-3 py-1"
+      class="sm:hidden text-sm text-ink border border-line rounded-lg px-3 py-1.5"
       aria-expanded="false"
       aria-controls="mobile-nav"
     >
-      menu
+      Menu
     </button>
   </div>
 
-  <nav id="mobile-nav" class="sm:hidden hidden border-t border-line px-5 py-3 flex flex-col gap-3 font-mono text-sm">
+  <nav id="mobile-nav" class="sm:hidden hidden border-t border-line/60 px-5 py-4 flex flex-col gap-4 text-sm">
     {links.map(l => (
-      <a
-        href={l.href}
-        class:list={[
-          "text-dim hover:text-signal transition-colors",
-          current === l.href && "text-signal"
-        ]}
-      >
-        /{l.label}
+      <a href={l.href} data-nav-link={l.id} class="text-dim hover:text-ink transition-colors data-[active=true]:text-signal font-medium">
+        {l.label}
       </a>
     ))}
-    <div class="flex items-center gap-2 text-xs text-dim pt-2 border-t border-line">
-      <span class="w-2 h-2 rounded-full bg-signal status-dot"></span>
-      SYSTEM ONLINE
-    </div>
   </nav>
 </header>
 
@@ -68,6 +50,40 @@ const current = Astro.url.pathname;
     const isHidden = menu?.classList.contains('hidden');
     menu?.classList.toggle('hidden');
     btn.setAttribute('aria-expanded', String(isHidden));
-    btn.textContent = isHidden ? 'close' : 'menu';
+    btn.textContent = isHidden ? 'Close' : 'Menu';
   });
+
+  document.querySelectorAll('[data-nav-link]').forEach(link => {
+    link.addEventListener('click', () => {
+      if (!menu?.classList.contains('hidden')) {
+        menu?.classList.add('hidden');
+        btn?.setAttribute('aria-expanded', 'false');
+        if (btn) btn.textContent = 'Menu';
+      }
+    });
+  });
+
+  const sections = ['about', 'certifications', 'homelab', 'projects']
+    .map(id => document.getElementById(id))
+    .filter(Boolean) as HTMLElement[];
+
+  const navLinks = document.querySelectorAll('[data-nav-link]');
+
+  const setActive = (id: string | null) => {
+    navLinks.forEach(link => {
+      link.setAttribute('data-active', String(link.getAttribute('data-nav-link') === id));
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    entries => {
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActive(visible.target.id);
+    },
+    { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
+  );
+
+  sections.forEach(s => observer.observe(s));
 </script>

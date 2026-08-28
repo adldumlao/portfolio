@@ -11,7 +11,8 @@ export default {
         line: '#16295E',    // rack seam / border
         ink: '#EAF0FA',     // near-white, cool tint — body text
         dim: '#8496C9',     // muted blue-gray — secondary text
-        signal: '#FEC40B',  // gold — primary accent, "online" status
+        signal: '#FEC40B',  // gold — primary accent
+        signalDeep: '#B45309', // deep amber — gradient stop paired with signal
         accent2: '#5B8DEF', // soft blue — secondary status ("in progress")
       },
       fontFamily: {

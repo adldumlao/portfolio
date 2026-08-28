@@ -2,13 +2,12 @@
 interface Props { status: 'active' | 'wip' | 'archived' }
 const { status } = Astro.props;
 const map = {
-  active:   { color: 'text-signal', label: 'ACTIVE' },
-  wip:      { color: 'text-accent2', label: 'IN PROGRESS' },
-  archived: { color: 'text-dim',    label: 'ARCHIVED' },
+  active:   { classes: 'bg-signal/15 text-signal',   label: 'Active' },
+  wip:      { classes: 'bg-accent2/15 text-accent2', label: 'In Progress' },
+  archived: { classes: 'bg-dim/15 text-dim',         label: 'Archived' },
 };
-const { color, label } = map[status];
+const { classes, label } = map[status];
 ---
-<span class:list={["font-mono text-[10px] tracking-wider inline-flex items-center gap-1.5", color]}>
-  <span class:list={["w-1.5 h-1.5 rounded-full status-dot", color.replace('text-', 'bg-')]}></span>
+<span class:list={["text-xs font-medium px-2.5 py-1 rounded-full whitespace-nowrap", classes]}>
   {label}
 </span>

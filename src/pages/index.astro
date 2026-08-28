@@ -1,28 +1,187 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import RackUnit from '../components/RackUnit.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import { getCollection } from 'astro:content';
+
+const certifications = [
+  {
+    name: "Google Cybersecurity Professional Certificate",
+    issuer: "Google (via Coursera)",
+    date: "2026",
+    credentialUrl: "https://www.credly.com/badges/f4e7514b-4525-4561-a10f-48249276fba7/public_url",
+  },
+  {
+    name: "CompTIA Security+",
+    issuer: "CompTIA",
+    date: "2026",
+    credentialUrl: "https://www.credly.com/badges/d82da168-593c-4f75-a9bb-2f256c4265d3/public_url",
+  },
+];
+
+const statChips = [
+  { label: "Focus", value: "Blue Team / SOC" },
+  { label: "Learning", value: "Home Lab & Detection" },
+  { label: "Certified", value: "Sec+ & Google Cyber" },
+];
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 ---
-<Layout title="index">
-  <section class="mb-16 sm:mb-24">
-    <p class="font-mono text-xs text-signal mb-4">// boot sequence complete</p>
-    <h1 class="text-4xl sm:text-6xl font-bold leading-[1.1] mb-6 max-w-2xl">
-      This machine is online.
-    </h1>
-    <p class="text-dim text-base sm:text-lg max-w-xl leading-relaxed">
-      I'm Arnel Dean Dumlao — I build and run a home lab, ship side projects, and
-      write about both. Everything below is a mounted unit. Pick one.
-    </p>
+<Layout title="Arnel Dean Dumlao — SOC Analyst Portfolio">
+  <!-- HERO -->
+  <section id="home" class="min-h-[85vh] flex items-center scroll-mt-24 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-10 lg:gap-14 w-full items-stretch">
+
+      <div>
+        <span class="inline-block bg-panel/60 border border-line rounded-full px-4 py-1.5 text-xs sm:text-sm text-dim mb-6">
+          Security+ Certified &nbsp;•&nbsp; SOC Labs &nbsp;•&nbsp; Detection & Investigation
+        </span>
+
+        <h1 class="text-4xl sm:text-6xl font-extrabold leading-[1.1] mb-6">
+          Arnel Dean Dumlao<br />Cybersecurity Portfolio
+        </h1>
+
+        <p class="italic text-dim text-base sm:text-lg max-w-xl leading-relaxed mb-8">
+          A cybersecurity portfolio focused on building real SOC skills —
+          documented through a growing home lab, hands-on learning, and
+          certifications earned along the way.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mb-10">
+          <a href="https://github.com/adldumlao"
+             class="bg-signal text-bg font-semibold px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity">
+            View GitHub
+          </a>
+          <a href="/#certifications"
+             class="border border-line text-ink px-5 py-2.5 rounded-lg hover:border-signal hover:text-signal transition-colors">
+            View Certifications
+          </a>
+          <a href="mailto:you@yourdomain.com"
+             class="text-dim px-5 py-2.5 rounded-lg hover:text-signal transition-colors">
+            Get in Touch
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl">
+          {statChips.map(chip => (
+            <div class="border border-line bg-panel/60 rounded-xl px-4 py-3">
+              <p class="text-xs text-dim mb-1">{chip.label}</p>
+              <p class="font-semibold text-sm">{chip.value}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div id="about" class="scroll-mt-24 h-full flex flex-col border border-line bg-panel rounded-2xl p-6 sm:p-7">
+        <img src="/profile.png" alt="Arnel Dean Dumlao" class="w-20 h-20 rounded-full object-cover border border-line mb-5" />
+        <h2 class="font-bold text-xl mb-3">About</h2>
+        <div class="space-y-3 text-dim text-sm leading-relaxed">
+          <p>
+            Hi, I'm Arnel Dean Dumlao. I'm transitioning into
+            cybersecurity and learning mostly by building things,
+            breaking them, and figuring out why they broke. Self-hosting
+            and infrastructure caught my interest because I like having
+            a lab where I can experiment and actually see how everything works.
+          </p>
+          <p>
+            Right now, I'm focused on building my SOC skills through
+            hands-on projects, with a growing home lab around Windows,
+            Sysmon, SIEM, and network monitoring.
+          </p>
+        </div>
+        <div class="flex gap-4 mt-auto pt-5 border-t border-line text-sm">
+          <a href="https://www.linkedin.com/in/adldumlao" class="text-dim hover:text-signal transition-colors">LinkedIn</a>
+          <a href="https://github.com/adldumlao" class="text-dim hover:text-signal transition-colors">GitHub</a>
+          <a href="mailto:you@yourdomain.com" class="text-dim hover:text-signal transition-colors">Email</a>
+        </div>
+      </div>
+
+    </div>
   </section>
 
-  <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-    <RackUnit unit="U1" title="About" href="/about">
-      <p class="text-dim text-sm leading-relaxed">Who I am, what I do, how I got here.</p>
-    </RackUnit>
-    <RackUnit unit="U2" title="Home Lab" href="/homelab">
-      <p class="text-dim text-sm leading-relaxed">The hardware and software actually keeping this site up.</p>
-    </RackUnit>
-    <RackUnit unit="U3" title="Projects" href="/projects">
-      <p class="text-dim text-sm leading-relaxed">Things I've shipped, still shipping, or shelved.</p>
-    </RackUnit>
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" class="scroll-mt-24 py-16 sm:py-24 border-t border-line/60">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">Certifications</h2>
+    <p class="text-dim max-w-xl leading-relaxed mb-12">
+      Cybersecurity certifications earned so far.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {certifications.map(cert => (
+        <div class="border border-line bg-panel rounded-2xl p-6 flex flex-col justify-between">
+          <div class="mb-5">
+            <h3 class="font-semibold text-lg mb-1">{cert.name}</h3>
+            <p class="text-dim text-sm">{cert.issuer} · {cert.date}</p>
+          </div>
+          {cert.credentialUrl && (
+            <a
+              href={cert.credentialUrl}
+              class="self-start border border-line px-4 py-2 rounded-lg text-sm hover:border-signal hover:text-signal transition-colors"
+            >
+              Verify credential →
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- HOME LAB -->
+  <section id="homelab" class="scroll-mt-24 py-16 sm:py-24 border-t border-line/60">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">Home Lab</h2>
+    <p class="text-dim max-w-xl leading-relaxed mb-12">
+      What's actually running right now. Updated as hardware and services
+      come and go — meant to drift, not stay static.
+    </p>
+
+    <div class="border border-dashed border-line rounded-2xl bg-panel/40 p-8 sm:p-12 text-center">
+      <p class="text-dim text-xs tracking-wider uppercase mb-2">Awaiting Deployment</p>
+      <p class="text-dim text-sm max-w-sm mx-auto leading-relaxed">
+        Home lab build is in progress. Hardware inventory and network diagram
+        go here once it's live.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="scroll-mt-24 py-16 sm:py-24 border-t border-line/60">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">Projects</h2>
+    <p class="text-dim max-w-xl leading-relaxed mb-12">
+      Each entry below is one markdown file in
+      <code class="text-sm bg-panel border border-line px-1.5 py-0.5 rounded">src/content/projects/</code>.
+      Add a new one and it shows up here automatically.
+    </p>
+
+    <div class="flex flex-col gap-4">
+      {projects.length === 0 ? (
+        <div class="border border-dashed border-line rounded-2xl bg-panel/40 p-8 sm:p-12 text-center">
+          <p class="text-dim text-xs tracking-wider uppercase mb-2">Awaiting Deployment</p>
+          <p class="text-dim text-sm max-w-sm mx-auto leading-relaxed">
+            First project is in the works. Drop a markdown file in
+            <code class="text-sm bg-panel border border-line px-1.5 py-0.5 rounded">src/content/projects/</code>
+            when it's ready and it'll show up here.
+          </p>
+        </div>
+      ) : (
+        projects.map((project) => (
+        <a
+          href={`/projects/${project.id}`}
+          class="group border border-line bg-panel rounded-2xl p-6 hover:border-signal/60 transition-colors"
+        >
+          <div class="flex items-center justify-between mb-2 gap-3">
+            <h3 class="font-semibold text-lg sm:text-xl group-hover:text-signal transition-colors">
+              {project.data.title}
+            </h3>
+            <StatusBadge status={project.data.status} />
+          </div>
+          <p class="text-dim text-sm leading-relaxed mb-4">{project.data.description}</p>
+          <div class="flex flex-wrap gap-1.5">
+            {project.data.stack.map(s => (
+              <span class="text-xs border border-line px-2.5 py-1 rounded-full text-dim">{s}</span>
+            ))}
+          </div>
+        </a>
+        ))
+      )}
+    </div>
   </section>
 </Layout>

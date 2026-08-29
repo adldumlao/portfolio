@@ -2,9 +2,14 @@
 const year = new Date().getFullYear();
 ---
 <footer class="border-t border-line/60 mt-16">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-dim">
-    <span>© {year} Arnel Dean Dumlao · Built with Astro, Tailwind CSS & Cloudflare</span>
-    <div class="flex gap-6">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-dim text-center sm:text-left">
+    <div class="order-2 sm:order-1">
+      <span>© {year} Arnel Dean Dumlao</span>
+      <span class="hidden sm:inline"> · </span>
+      <br class="sm:hidden" />
+      <span>Built with Astro, Tailwind CSS & Cloudflare</span>
+    </div>
+    <div class="order-1 sm:order-2 flex gap-6">
       <a href="mailto:you@yourdomain.com" class="hover:text-signal transition-colors">Email</a>
       <a href="https://github.com/adldumlao" class="hover:text-signal transition-colors">GitHub</a>
       <a href="https://www.linkedin.com/in/adldumlao" class="hover:text-signal transition-colors">LinkedIn</a>

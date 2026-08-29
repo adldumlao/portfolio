@@ -23,7 +23,7 @@ const certifications = [
 const statChips = [
   { label: "Focus", value: "Blue Team / SOC" },
   { label: "Learning", value: "Home Lab & Detection" },
-  { label: "Certified", value: "Sec+ & Google Cyber" },
+  { label: "Certified", value: "Sec+ & Google Cybersecurity" },
 ];
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
@@ -35,7 +35,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 
       <div>
         <span class="inline-block bg-panel/60 border border-line rounded-full px-4 py-1.5 text-xs sm:text-sm text-dim mb-6">
-          Aspiring SOC Analyst &nbsp;•&nbsp; Blue Team &nbsp;•&nbsp; Home Lab
+          Security+ Certified &nbsp;•&nbsp; Blue Team &nbsp;•&nbsp; SOC Analyst
         </span>
 
         <h1 class="text-4xl sm:text-6xl font-extrabold leading-[1.1] mb-6">
@@ -61,7 +61,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl">
           {statChips.map(chip => (
-            <div class="border border-line bg-panel/60 rounded-xl px-4 py-3">
+            <div class="border border-line bg-panel/60 rounded-xl px-4 py-4">
               <p class="text-xs text-dim mb-1">{chip.label}</p>
               <p class="font-semibold text-sm">{chip.value}</p>
             </div>
@@ -85,6 +85,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
             hands-on projects, with a growing home lab around Windows,
             Sysmon, SIEM, and network monitoring.
           </p>
+          <p></p>
         </div>
         <div class="flex items-center flex-wrap gap-4 mt-auto pt-5 border-t border-line text-sm">
           <a href="https://www.linkedin.com/in/adldumlao" class="text-dim hover:text-signal transition-colors">LinkedIn</a>

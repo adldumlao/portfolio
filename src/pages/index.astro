@@ -9,12 +9,14 @@ const certifications = [
     issuer: "Google (via Coursera)",
     date: "2026",
     credentialUrl: "https://www.credly.com/badges/f4e7514b-4525-4561-a10f-48249276fba7/public_url",
+    logo: "/certs/google-cybersecurity.png",
   },
   {
     name: "CompTIA Security+",
     issuer: "CompTIA",
     date: "2026",
     credentialUrl: "https://www.credly.com/badges/d82da168-593c-4f75-a9bb-2f256c4265d3/public_url",
+    logo: "/certs/comptia-security-plus.png",
   },
 ];
 
@@ -28,12 +30,12 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 ---
 <Layout title="Arnel Dean Dumlao — SOC Analyst Portfolio">
   <!-- HERO -->
-  <section id="home" class="min-h-[85vh] flex items-center scroll-mt-24 py-16">
+  <section id="home" class="min-h-[60vh] flex items-center scroll-mt-24 py-16">
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-10 lg:gap-14 w-full items-stretch">
 
       <div>
         <span class="inline-block bg-panel/60 border border-line rounded-full px-4 py-1.5 text-xs sm:text-sm text-dim mb-6">
-          Security+ Certified &nbsp;•&nbsp; SOC Labs &nbsp;•&nbsp; Detection & Investigation
+          Aspiring SOC Analyst &nbsp;•&nbsp; Blue Team &nbsp;•&nbsp; Home Lab
         </span>
 
         <h1 class="text-4xl sm:text-6xl font-extrabold leading-[1.1] mb-6">
@@ -108,9 +110,12 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {certifications.map(cert => (
         <div class="border border-line bg-panel rounded-2xl p-6 flex flex-col justify-between">
-          <div class="mb-5">
-            <h3 class="font-semibold text-lg mb-1">{cert.name}</h3>
-            <p class="text-dim text-sm">{cert.issuer} · {cert.date}</p>
+          <div class="flex items-start gap-4 mb-5">
+            <img src={cert.logo} alt={`${cert.name} logo`} class="w-16 h-16 sm:w-20 sm:h-20 object-contain bg-line/40 rounded-lg p-2 shrink-0" />
+            <div>
+              <h3 class="font-semibold text-lg mb-1">{cert.name}</h3>
+              <p class="text-dim text-sm">{cert.issuer} · {cert.date}</p>
+            </div>
           </div>
           {cert.credentialUrl && (
             <a

@@ -15,4 +15,14 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { projects };
+const homelab = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/homelab' }),
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    status: z.enum(['complete', 'in-progress', 'planned']).default('planned'),
+    order: z.number().default(99),
+  }),
+});
+
+export const collections = { projects, homelab };

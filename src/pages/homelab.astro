@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+// Edit this array to update the pipeline diagram — no HTML needed.
+const pipeline = [
+  "Windows 11 SOC Endpoint",
+  "Sysmon",
+  "Windows Event Logs",
+  "Future SIEM Integration",
+];
+
+// Edit this array to update the tools list — no HTML needed.
+const tools = [
+  "Windows 11", "VirtualBox", "Sysmon", "PowerShell", "MITRE ATT&CK",
+];
+
+const statusMap = {
+  complete:     { classes: 'bg-signal/15 text-signal',   label: '✓ Complete' },
+  'in-progress':{ classes: 'bg-accent2/15 text-accent2', label: '● In Progress' },
+  planned:      { classes: 'bg-dim/15 text-dim',         label: 'Planned' },
+};
+
+const entries = (await getCollection('homelab')).sort((a, b) => a.data.order - b.data.order);
+---
+<Layout title="Home Lab" description="Progress log for my SOC-focused home lab build.">
+  <a href="/#homelab" class="text-sm text-dim hover:text-signal transition-colors mb-8 inline-block">
+    ← Back to home
+  </a>
+
+  <h1 class="text-3xl sm:text-4xl font-extrabold mb-4">SOC Security Home Lab</h1>
+  <p class="text-dim text-base leading-relaxed max-w-2xl mb-14">
+    A hands-on security environment I use to build practical SOC analyst
+    skills through endpoint monitoring, telemetry analysis, detection, and
+    investigation.
+  </p>
+
+  <!-- LAB OVERVIEW -->
+  <h2 class="text-xs font-semibold tracking-wider uppercase text-dim mb-6">Lab Overview — Current Environment</h2>
+  <div class="border border-line bg-panel rounded-2xl p-6 sm:p-8 mb-14">
+    <div class="flex flex-col items-start gap-0">
+      {pipeline.map((step, i) => (
+        <>
+          <div class="font-semibold text-ink py-1">{step}</div>
+          {i < pipeline.length - 1 && (
+            <div class="text-signal pl-1 leading-none">↓</div>
+          )}
+        </>
+      ))}
+    </div>
+  </div>
+
+  <!-- BUILD LOG -->
+  <h2 class="text-xs font-semibold tracking-wider uppercase text-dim mb-6">Build Log</h2>
+  <div class="flex flex-col gap-3 mb-14">
+    {entries.map(async (entry, i) => {
+      const { Content } = await render(entry);
+      const { classes, label } = statusMap[entry.data.status];
+      return (
+        <details data-log-entry class="group border border-line bg-panel rounded-2xl p-5 sm:p-6 open:border-signal/60 transition-colors">
+          <summary class="flex items-center justify-between gap-3 cursor-pointer list-none">
+            <div class="flex items-baseline gap-3">
+              <span class="font-mono text-dim text-sm">{String(i + 1).padStart(2, '0')}</span>
+              <span class="font-semibold text-ink">{entry.data.title}</span>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <span class:list={["text-xs font-medium px-2.5 py-1 rounded-full whitespace-nowrap", classes]}>
+                {label}
+              </span>
+              <svg data-chevron xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-dim transition-transform duration-200">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </div>
+          </summary>
+          <p class="text-dim text-sm leading-relaxed mt-3 ml-8">{entry.data.summary}</p>
+          <div class="prose prose-invert prose-sm max-w-none mt-3 ml-8 prose-p:text-dim prose-a:text-signal">
+            <Content />
+          </div>
+          <button type="button" data-collapse-trigger class="text-xs text-dim hover:text-signal transition-colors mt-4 ml-8 inline-flex items-center gap-1">
+            Hide
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m18 15-6-6-6 6" />
+            </svg>
+          </button>
+        </details>
+      );
+    })}
+  </div>
+
+  <!-- TOOLS / ENVIRONMENT -->
+  <h2 class="text-xs font-semibold tracking-wider uppercase text-dim mb-6">Tools / Environment</h2>
+  <ul class="flex flex-wrap gap-2">
+    {tools.map(tool => (
+      <li class="text-xs border border-line bg-panel px-3 py-1.5 rounded-full text-dim">{tool}</li>
+    ))}
+  </ul>
+</Layout>
+
+<script>
+  // Rotate the chevron when an entry is opened/closed
+  document.querySelectorAll<HTMLDetailsElement>('[data-log-entry]').forEach(details => {
+    const chevron = details.querySelector('[data-chevron]');
+    details.addEventListener('toggle', () => {
+      chevron?.classList.toggle('rotate-180', details.open);
+    });
+  });
+
+  // Explicit "Hide" button: collapses the entry and scrolls it back into view
+  document.querySelectorAll<HTMLButtonElement>('[data-collapse-trigger]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const details = btn.closest('details');
+      if (!details) return;
+      details.open = false;
+      details.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>

@@ -142,13 +142,22 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
       come and go — meant to drift, not stay static.
     </p>
 
-    <div class="border border-dashed border-line rounded-2xl bg-panel/40 p-8 sm:p-12 text-center">
-      <p class="text-dim text-xs tracking-wider uppercase mb-2">Awaiting Deployment</p>
-      <p class="text-dim text-sm max-w-sm mx-auto leading-relaxed">
-        Home lab build is in progress. Hardware inventory and network diagram
-        go here once it's live.
+    <a href="/homelab" class="group block border border-line bg-panel rounded-2xl p-6 hover:border-signal/60 transition-colors">
+      <div class="flex items-center justify-between mb-2 gap-3">
+        <h3 class="font-semibold text-lg sm:text-xl group-hover:text-signal transition-colors">
+          SOC Security Home Lab
+        </h3>
+        <StatusBadge status="active" />
+      </div>
+      <p class="text-dim text-sm leading-relaxed mb-4">
+        Building a hands-on SOC environment for endpoint monitoring, log analysis, threat detection, and security investigation.
       </p>
-    </div>
+      <div class="flex flex-wrap gap-1.5">
+        {["Windows 11", "Sysmon", "VirtualBox", "MITRE ATT&CK"].map(tag => (
+          <span class="text-xs border border-line px-2.5 py-1 rounded-full text-dim">{tag}</span>
+        ))}
+      </div>
+    </a>
   </section>
 
   <!-- PROJECTS -->

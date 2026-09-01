@@ -41,5 +41,38 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toSt
       <slot />
     </main>
     <Footer />
+
+    <button
+      id="back-to-top"
+      aria-label="Back to top"
+      class="fixed bottom-6 right-6 z-40 bg-panel border border-line text-signal p-3 rounded-full shadow-lg opacity-0 pointer-events-none translate-y-2 transition-all duration-300 hover:border-signal/60"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 19V5" />
+        <path d="m5 12 7-7 7 7" />
+      </svg>
+    </button>
   </body>
 </html>
+
+<script>
+  const btn = document.getElementById('back-to-top');
+
+  const toggleVisibility = () => {
+    if (!btn) return;
+    if (window.scrollY > 400) {
+      btn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-2');
+      btn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+    } else {
+      btn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-2');
+      btn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+    }
+  };
+
+  window.addEventListener('scroll', toggleVisibility, { passive: true });
+  toggleVisibility();
+
+  btn?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>

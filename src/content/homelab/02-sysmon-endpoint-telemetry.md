@@ -4,6 +4,10 @@ summary: "Installing Sysmon and collecting detailed Windows endpoint telemetry."
 status: "complete"
 order: 2
 ---
-Installed Sysmon on the endpoint with a tuned configuration to capture
-process creation, network connections, and file activity — the raw
-telemetry that later detection work will be built on.
+Completed:
+- Sysmon installed on SOC-WIN11-01
+- Sysmon Modular configuration deployed
+- Sysmon service verified
+- Microsoft-Windows-Sysmon/Operational verified
+- Event ID 1 — Process Creation analyzed
+- PowerShell process activity examined

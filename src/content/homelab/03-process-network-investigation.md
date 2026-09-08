@@ -1,9 +1,13 @@
 ---
 title: "Process & Network Investigation"
 summary: "Correlating process execution with network activity using Sysmon telemetry."
-status: "in-progress"
+status: "complete"
 order: 3
 ---
-Working through correlating Sysmon Event ID 1 (process creation) with
-Event ID 3 (network connection) to trace what a given process actually
-did on the network after launch.
+Completed:
+- Generated controlled PowerShell activity
+- Analyzed Event ID 1 — Process Creation
+- Analyzed Event ID 3 — Network Connection
+- Identified destination IP and port
+- Correlated Event ID 1 and Event ID 3 using ProcessGuid
+- Determined the observed activity was benign

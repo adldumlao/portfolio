@@ -3,16 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 
 // Edit this array to update the pipeline diagram — no HTML needed.
-const pipeline = [
-  "Windows 11 SOC Endpoint",
-  "Sysmon",
-  "Windows Event Logs",
-  "Future SIEM Integration",
-];
+const pipelineRoot = "Windows 11 SOC Endpoint";
+const pipelineBranches = ["Windows Security Logs", "Sysmon Telemetry"];
+const pipelineChain = ["Splunk Universal Forwarder", "Splunk Enterprise", "Search & Investigation"];
 
 // Edit this array to update the tools list — no HTML needed.
 const tools = [
-  "Windows 11", "VirtualBox", "Sysmon", "PowerShell", "MITRE ATT&CK",
+  "Windows 11", "VirtualBox", "Sysmon", "PowerShell", "Splunk Enterprise", "Splunk Universal Forwarder", "MITRE ATT&CK",
 ];
 
 const statusMap = {
@@ -36,19 +33,27 @@ const entries = (await getCollection('homelab')).sort((a, b) => a.data.order - b
   </p>
 
   <!-- LAB OVERVIEW -->
-  <h2 class="text-xs font-semibold tracking-wider uppercase text-dim mb-6">Lab Overview — Current Environment</h2>
-  <div class="border border-line bg-panel rounded-2xl p-6 sm:p-8 mb-14">
-    <div class="flex flex-col items-start gap-0">
-      {pipeline.map((step, i) => (
-        <>
-          <div class="font-semibold text-ink py-1">{step}</div>
-          {i < pipeline.length - 1 && (
-            <div class="text-signal pl-1 leading-none">↓</div>
-          )}
-        </>
-      ))}
-    </div>
+  <div class="flex flex-col items-center gap-1 text-center">
+  <div class="font-semibold text-ink py-1">{pipelineRoot}</div>
+  <div class="text-signal leading-none">↓</div>
+
+  <div class="flex flex-col sm:flex-row gap-3 sm:gap-6">
+    {pipelineBranches.map(branch => (
+      <div class="font-semibold text-ink border border-line rounded-lg px-4 py-2 bg-bg/40">{branch}</div>
+    ))}
   </div>
+
+  <div class="text-signal leading-none">↓</div>
+
+  {pipelineChain.map((step, i) => (
+    <>
+      <div class="font-semibold text-ink py-1">{step}</div>
+      {i < pipelineChain.length - 1 && (
+        <div class="text-signal leading-none">↓</div>
+      )}
+    </>
+  ))}
+</div>
 
   <!-- BUILD LOG -->
   <h2 class="text-xs font-semibold tracking-wider uppercase text-dim mb-6">Build Log</h2>

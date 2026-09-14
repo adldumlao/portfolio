@@ -47,5 +47,5 @@ endpoint security events using SPL.
   <figcaption class="text-xs text-dim italic mt-2">Querying authentication events — filtered the endpoint's Windows Security logs for Event ID 4625 to locate a failed logon event previously analyzed during the authentication-log investigation.</figcaption>
 </figure>
 
-The forwarding pipeline works end to end, but this isn't done yet — Sysmon
+The forwarding pipeline works end to end, but this isn't done yet. Sysmon
 ingestion and deeper SPL-based analysis are still in progress.
